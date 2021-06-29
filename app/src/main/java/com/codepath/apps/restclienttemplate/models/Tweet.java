@@ -2,6 +2,8 @@ package com.codepath.apps.restclienttemplate.models;
 
 import android.util.Log;
 
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +21,7 @@ public class Tweet {
     public String body;
     public String createdAt;
     public User user;
+    public List<String> urls;
 
     // empty constructor needed by parceler library
     public Tweet() {}
@@ -34,6 +37,13 @@ public class Tweet {
         tweet.body = jsonObject.getString("text");
         tweet.createdAt = tweet.getRelativeTimeAgo(jsonObject.getString("created_at"));
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
+
+        JSONObject entities = jsonObject.getJSONObject("entities");
+        tweet.urls = null;
+        if (entities.has("media")) {
+            tweet.urls = fromMedia(entities.getJSONArray("media"));
+        }
+
         return tweet;
     }
 
@@ -44,6 +54,15 @@ public class Tweet {
         }
 
         return tweets;
+    }
+
+    private static List<String> fromMedia(JSONArray jsonArray) throws JSONException {
+        List<String> arr = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            arr.add(jsonArray.getJSONObject(i).getString("media_url_https"));
+        }
+
+        return arr;
     }
 
     public String getRelativeTimeAgo(String rawJsonDate) {
