@@ -20,6 +20,8 @@ import org.json.JSONException;
 
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder> {
 
     Context context;
@@ -74,10 +76,13 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         }
 
         public void bind(Tweet tweet) {
+            int radius = 20;
+            int margin = 0;
+
             tvBody.setText(tweet.body);
             tvScreenName.setText(tweet.user.screenName);
             tvCreatedAt.setText(tweet.createdAt);
-            Glide.with(context).load(tweet.user.profileImageUrl).into(ivProfileImage);
+            Glide.with(context).load(tweet.user.profileImageUrl).transform(new RoundedCornersTransformation(radius, margin)).into(ivProfileImage);
             if (tweet.urls != null) {
                 Glide.with(context).load(tweet.urls.get(0)).into(ivMedia);
             }
