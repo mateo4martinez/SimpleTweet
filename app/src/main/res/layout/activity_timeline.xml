@@ -14,10 +14,11 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTweets"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="733dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="0dp"
@@ -41,15 +42,5 @@
                 app:layout_anchorGravity="bottom|right|end" />
         </FrameLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/swipeContainer"
-        android:layout_centerHorizontal="true"
-        android:background="@color/twitter_blue_fill_pressed"
-        android:text="Logout"
-        android:textColor="@android:color/white" />
 
 </RelativeLayout>

@@ -33,13 +33,14 @@ public class TimelineActivity extends AppCompatActivity {
     public static final String TAG = "TimelineActivity";
     private final int REQUEST_CODE = 20;
     private SwipeRefreshLayout swipeContainer;
+    private MenuItem miActionProgressItem;
 
     TwitterClient client;
     RecyclerView rvTweets;
     List<Tweet> tweets;
     TweetsAdapter adapter;
-    Button btnLogout;
     FloatingActionButton compose;
+    MenuItem btnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,43 +57,9 @@ public class TimelineActivity extends AppCompatActivity {
         rvTweets.setAdapter(adapter);
 
         btnLogout = findViewById(R.id.btnLogout);
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                client.clearAccessToken(); // forget who's logged in
-                finish(); // navigate backwards to login screen
-            }
-        });
-
-        compose = findViewById(R.id.compose);
-        compose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                runCompose();
-            }
-        });
 
         populateHomeTimeline();
         setupRefresh();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // inflate the menu; adds items to action bar if present
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.compose) {
-            // Compose icon has been selected
-            // Navigate to the compose activity
-            Intent intent = new Intent(this, ComposeActivity.class);
-            startActivityForResult(intent, REQUEST_CODE);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -170,5 +137,49 @@ public class TimelineActivity extends AppCompatActivity {
     public void runCompose() {
         Intent intent = new Intent(this, ComposeActivity.class);
         startActivityForResult(intent, REQUEST_CODE);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // inflate the menu; adds items to action bar if present
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.compose) {
+            // Compose icon has been selected
+            // Navigate to the compose activity
+            Intent intent = new Intent(this, ComposeActivity.class);
+            startActivityForResult(intent, REQUEST_CODE);
+            return true;
+        }
+        if (item.getItemId() == R.id.btnLogout) {
+            client.clearAccessToken(); // forget who's logged in
+            finish(); // navigate backwards to login screen
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        Log.i(TAG, "Preparing...");
+        miActionProgressItem = menu.findItem(R.id.miActionProgress);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public void invalidateOptionsMenu() {
+        super.invalidateOptionsMenu();
+    }
+
+    public void showProgressBar() {
+        miActionProgressItem.setVisible(true);
+    }
+
+    public void hideProgressBar() {
+        miActionProgressItem.setVisible(false);
     }
 }
