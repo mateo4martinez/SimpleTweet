@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,7 +39,6 @@ public class ComposeActivity extends AppCompatActivity {
         etCompose = findViewById(R.id.etCompose);
         btnTweet = findViewById(R.id.btnTweet);
 
-        // set click listener on button
         btnTweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +51,7 @@ public class ComposeActivity extends AppCompatActivity {
                     Toast.makeText(ComposeActivity.this, "Sorry, your tweet is too long.", Toast.LENGTH_LONG).show();
                     return;
                 }
-                // make an api call to twitter to publish the tweet
+
                 client.publishTweet(tweetContent, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Headers headers, JSON json) {
@@ -61,9 +61,7 @@ public class ComposeActivity extends AppCompatActivity {
                             Log.i(TAG, "Published tweet says: " + tweet);
                             Intent intent = new Intent();
                             intent.putExtra("tweet", Parcels.wrap(tweet));
-                            // set result code and bundle data for response
                             setResult(RESULT_OK, intent);
-                            // closes the activity, passes data to parent
                             finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
