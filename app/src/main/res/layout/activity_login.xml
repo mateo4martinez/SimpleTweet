@@ -6,16 +6,29 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/twitter_blue"
     tools:context=".LoginActivity" >
 
+    <ImageView
+        android:id="@+id/twitterLogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/twitter_logo_white"
+        android:background="@color/twitter_blue"
+        />
+
     <Button
-        android:layout_width="match_parent"
+        android:id="@+id/btnLogin"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"
+        android:layout_below="@+id/twitterLogo"
         android:onClick="loginToRest"
         android:textColor="@android:color/white"
-        android:background="@color/twitter_blue"
+        android:background="@color/twitter_blue_fill_pressed"
         android:text="@string/login_label" />
 
 </RelativeLayout>
