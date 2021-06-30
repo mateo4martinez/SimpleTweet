@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,6 +39,7 @@ public class TimelineActivity extends AppCompatActivity {
     List<Tweet> tweets;
     TweetsAdapter adapter;
     Button btnLogout;
+    FloatingActionButton compose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,14 @@ public class TimelineActivity extends AppCompatActivity {
             public void onClick(View v) {
                 client.clearAccessToken(); // forget who's logged in
                 finish(); // navigate backwards to login screen
+            }
+        });
+
+        compose = findViewById(R.id.compose);
+        compose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                runCompose();
             }
         });
 
@@ -155,5 +165,10 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.d("DEBUG", "Fetch timeline error: " + throwable.toString());
             }
         });
+    }
+
+    public void runCompose() {
+        Intent intent = new Intent(this, ComposeActivity.class);
+        startActivityForResult(intent, REQUEST_CODE);
     }
 }
