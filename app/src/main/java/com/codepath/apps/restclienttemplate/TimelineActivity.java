@@ -34,8 +34,8 @@ public class TimelineActivity extends AppCompatActivity {
     public static final String TAG = "TimelineActivity";
     private final int REQUEST_CODE = 20;
     private SwipeRefreshLayout swipeContainer;
-    public MenuItem miActionProgressItem;
 
+    MenuItem miActionProgressItem;
     TwitterClient client;
     RecyclerView rvTweets;
     List<Tweet> tweets;
@@ -67,6 +67,7 @@ public class TimelineActivity extends AppCompatActivity {
         });
 
         populateHomeTimeline();
+
         setupRefresh();
     }
 
@@ -90,7 +91,6 @@ public class TimelineActivity extends AppCompatActivity {
                 JSONArray jsonArray = json.jsonArray;
                 try {
                     tweets.addAll(Tweet.fromJsonArray(jsonArray));
-                    Log.i(TAG, tweets.toString());
                     adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     Log.e(TAG, "json exception", e);
@@ -123,11 +123,8 @@ public class TimelineActivity extends AppCompatActivity {
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
-                Log.i(TAG, tweets.toString());
                 adapter.clear();
-                Log.i(TAG, tweets.toString());
                 populateHomeTimeline();
-                Log.i(TAG, tweets.toString());
                 adapter.addAll(tweets);
                 swipeContainer.setRefreshing(false);
             }
@@ -163,9 +160,7 @@ public class TimelineActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        Log.i(TAG, "Preparing...");
         miActionProgressItem = menu.findItem(R.id.miActionProgress);
-
         return super.onPrepareOptionsMenu(menu);
     }
 

@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         app:counterEnabled="true"
         app:counterMaxLength="140"
+        android:layout_below="@+id/ivProfileImage"
         >
         <EditText
             android:id="@+id/etCompose"
@@ -39,4 +40,52 @@
         android:textColor="@android:color/white"
         android:background="@color/twitter_blue"
         android:text="@string/tweet" />
+
+    <ImageView
+        android:id="@+id/ivProfileImage"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+
+        android:src="@drawable/twitter_logo_blue" />
+
+    <TextView
+        android:id="@+id/tvScreenName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/ivProfileImage"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_toEndOf="@+id/btnClose"
+        android:layout_below="@+id/tvFullName"
+        android:gravity="end"
+        android:text=".@mateomfbcom1" />
+
+    <ImageButton
+        android:id="@+id/btnClose"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/ivProfileImage"
+        android:layout_marginStart="20dp"
+        android:tint="@color/twitter_blue"
+        android:backgroundTint="@android:color/white"
+        android:src="@drawable/ic_vector_close" />
+
+    <TextView
+        android:id="@+id/tvFullName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ivProfileImage"
+        android:layout_toStartOf="@+id/ivProfileImage"
+        android:layout_toEndOf="@id/btnClose"
+        android:gravity="end"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+
+        android:text="Mateo Martinez" />
 </RelativeLayout>

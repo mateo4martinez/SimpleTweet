@@ -3,6 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/twitterLogo"
+        android:icon="@drawable/twitter_logo_white"
+        app:showAsAction="always"
+        />
+
+    <item
         android:id="@+id/miActionProgress"
         android:title="Loading..."
         android:visible="false"
